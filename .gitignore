@@ -105,3 +105,7 @@ venv.bak/
 
 # Insane in the Jetbrains
 .idea/
+
+# JavaScript
+node_modules/
+jtrope/www/static/www/src/js/
