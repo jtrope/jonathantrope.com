@@ -18,7 +18,7 @@ def images(request):
             'url': 'http://www.placecage.com/100/100',
         },
         {
-            'caption': 'Malaysia Template',
+            'caption': 'Malaysia Temple',
             'url': 'http://www.placecage.com/250/250',
         }
     ]
