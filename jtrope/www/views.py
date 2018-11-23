@@ -1,5 +1,10 @@
+from copy import deepcopy
+
+from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render_to_response
+
+from .images import IMAGES
 
 
 def index(request):
@@ -7,19 +12,9 @@ def index(request):
 
 
 def images(request):
-    # TODO: Put in config
-    images = [
-        {
-            'caption': 'Yellowstone Bison',
-            'url': 'http://www.placecage.com/200/200',
-        },
-        {
-            'caption': 'Thailand Street Food',
-            'url': 'http://www.placecage.com/100/100',
-        },
-        {
-            'caption': 'Malaysia Temple',
-            'url': 'http://www.placecage.com/250/250',
-        }
-    ]
-    return JsonResponse(images, safe=False)
+    url_prefix = settings.MEDIA_URL
+    response = deepcopy(IMAGES)
+    for image_data in response:
+        image_data['url'] = url_prefix + image_data['file_name']
+
+    return JsonResponse(response, safe=False)

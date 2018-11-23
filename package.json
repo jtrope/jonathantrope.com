@@ -24,11 +24,14 @@
   },
   "dependencies": {
     "css-loader": "^1.0.1",
+    "file-loader": "^2.0.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "superagent": "^4.0.0",
+    "url-loader": "^1.1.2"
   }
 }

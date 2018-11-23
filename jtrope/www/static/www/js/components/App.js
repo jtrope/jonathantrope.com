@@ -1,46 +1,81 @@
 import React from "react";
 import styles from "./App.less"
+import request from 'superagent';
+import ajaxLoader from '../images/ajax-loader.gif';
 
 class App extends React.Component {
     constructor(props) {
-        // TODO: Replace hardcoded with API call
         super(props);
-        const currImg = this.props.images[Math.floor(Math.random()*this.props.images.length)];
-        this.state = {currImg: currImg};
+        this.state = {
+            currImg: null,
+            loading: true,
+        };
 
         // Bindings
         this._handleClick =this._handleClick.bind(this);
     }
 
-    static defaultProps = {
-        images: [
-            "http://www.placecage.com/100/100",
-            "http://www.placecage.com/200/200",
-            "http://www.placecage.com/300/300",
-            "http://www.placecage.com/400/400",
-        ]
-    };
+    componentDidMount() {
+        // TODO: Put base url in config
+        const _this = this;
+        request
+            .get('http://127.0.0.1:8000/images/')
+            .end(function(err, res){
+                const data = res.body;
+                if (err) {
+                    // TODO: handle gracefully lol
+                    console.log("Oh uh, spaghettio")
+                } else {
+                    _this.setState({
+                        loading: false,
+                        currImg: _this._getRandomImg(data),
+                        images: data
+                    })
+                }
+        });
+    }
 
     render() {
+        let imgSrc;
+
+        if (this.state.loading) {
+            imgSrc = ajaxLoader;
+        } else {
+            imgSrc = this.state.currImg.url;
+        }
         return (
             <div className={styles["splash-page"]}>
                 <h1>Jonathan Trope</h1>
                 <h2>Hi There. I like to build cool stuff on the web</h2>
                 <span className={styles["centered-link"]}>
-                    <a href="#" onClick={this._handleClick}>Get random image</a>
+                    <a href="#" onClick={this._handleClick}>Get random</a>
                 </span>
-                <img src={this.state.currImg} />
+                <img src={imgSrc} />
             </div>
         );
     }
 
     _handleClick(e) {
         e.preventDefault();
-        this.setState({currImg: this._getRandomImg()})
+        this.setState({currImg: this._getRandomImg(this.state.images)})
     }
 
-    _getRandomImg() {
-        return this.props.images[Math.floor(Math.random()*this.props.images.length)];
+    _getRandomImg(images) {
+        const getRandom = function(data) {
+            return data[Math.floor(Math.random()*data.length)]
+        };
+
+        let img = getRandom(images);
+        if (!this.state.currImg || images.length === 1) {
+            return img;
+        }
+
+        // If the random image is the same as the current one, keep trying
+        while (img.file_name === this.state.currImg.file_name) {
+            img = getRandom(images);
+        }
+
+        return img
     }
 }
 
