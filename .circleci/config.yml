@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7.1
+
+    working_directory: ~/jonathantrope.com
+
+    steps:
+      - checkout
+      - run:
+          name: run tests
+          command: |
+            echo "Hello world"
