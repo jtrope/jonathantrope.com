@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./App.less"
 import request from 'superagent';
 import ajaxLoader from '../images/ajax-loader.gif';
 
@@ -44,13 +43,15 @@ class App extends React.Component {
             imgSrc = this.state.currImg.url;
         }
         return (
-            <div className={styles["splash-page"]}>
-                <h1>Jonathan Trope</h1>
-                <h2>Hi There. I like to build cool stuff on the web</h2>
-                <span className={styles["centered-link"]}>
-                    <a href="#" onClick={this._handleClick}>Get random</a>
-                </span>
-                <img src={imgSrc} />
+            <div className="app">
+                <div className="splash-page">
+                    <h1>Jonathan Trope</h1>
+                    <h2>Hi There. I like to build cool stuff on the web</h2>
+                    <span className="centered-link">
+                        <a href="#" onClick={this._handleClick}>Get random</a>
+                    </span>
+                    <img src={imgSrc} />
+                </div>
             </div>
         );
     }

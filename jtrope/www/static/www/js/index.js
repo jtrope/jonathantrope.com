@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import { render } from "react-dom";
 import App from "./components/App";
-import './globals.less';
+import './index.less';
 
 const Index = () =>(
     <App />
