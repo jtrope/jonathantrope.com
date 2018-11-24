@@ -8,6 +8,7 @@ django = "*"
 
 [dev-packages]
 ipdb = "*"
+pdbpp = "*"
 
 [requires]
 python_version = "3.7"
