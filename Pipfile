@@ -9,6 +9,7 @@ django = "*"
 [dev-packages]
 ipdb = "*"
 pdbpp = "*"
+unittest-xml-reporting = "*"
 
 [requires]
 python_version = "3.7"

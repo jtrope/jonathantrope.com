@@ -1,2 +1,2 @@
 test:
-	python jtrope/manage.py test jtrope/
+	pipenv run python jtrope/manage.py test jtrope/

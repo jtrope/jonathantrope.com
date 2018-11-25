@@ -109,3 +109,6 @@ venv.bak/
 # JavaScript
 node_modules/
 jtrope/www/static/www/src/js/
+
+# Unit test results
+test-results/

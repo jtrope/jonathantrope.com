@@ -1,14 +1,35 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/jonathantrope.com
     docker:
       - image: circleci/python:3.7.1
-
-    working_directory: ~/jonathantrope.com
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
 
     steps:
       - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
-          name: run tests
+          name: install dependencies
           command: |
-            echo "Hello world"
+            sudo pip install pipenv
+            pipenv install --dev
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
+      - run:
+          name: run django tests
+          command: |
+            make test
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: tr1
