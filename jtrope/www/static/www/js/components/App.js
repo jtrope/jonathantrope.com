@@ -18,7 +18,7 @@ class App extends React.Component {
         // TODO: Put base url in config
         const _this = this;
         request
-            .get('http://127.0.0.1:8000/api/images/')
+            .get('http://127.0.0.1:3030/api/images/')
             .end(function(err, res){
                 const data = res.body;
                 if (err) {
