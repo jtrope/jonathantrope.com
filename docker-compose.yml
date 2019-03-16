@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: jtrope:latest
+    ports:
+      - "3030:3030"
+    volumes:
+      - .:/app
+      - /app/node_modules
